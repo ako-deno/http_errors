@@ -1,9 +1,9 @@
-name: http-errors-ci
+name: http_errors-ci
 
 on: [push, pull_request]
 
 jobs:
-  http-errors:
+  http_errors:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
