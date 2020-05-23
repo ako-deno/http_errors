@@ -8,7 +8,7 @@ Create HTTP Error for Deno, inspired by [http_errors](https://github.com/jshttp/
 ## API
 
 ```js
-import { createError, HttpError, Props } from "https://raw.githubusercontent.com/ako-deno/http_errors/master/mod.ts";
+import { createError, HttpError, Props } from "https://deno.land/x/http_errors/mod.ts";
 ```
 
 ### createError(status: number, message?: string, props?: Props): HttpError
@@ -51,7 +51,7 @@ import {
   serve,
   Response,
 } from "https://deno.land/std/http/server.ts";
-import { createError, HttpError } from "https://raw.githubusercontent.com/ako-deno/http_errors/master/mod.ts";
+import { createError, HttpError } from "https://deno.land/x/http_errors/mod.ts";
 
 const server = serve("127.0.0.1:3000");
 console.log("Server listening on: 3000");
