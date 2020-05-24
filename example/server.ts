@@ -19,7 +19,7 @@ for await (const req of server) {
       throw Error("DB error!");
     }
   } catch (e) {
-    if (e instanceof HttpError) {
+    if (e instanceof HttpError && e.expose) {
       res.body = JSON.stringify(e.toJSON());
       res.status = e.status;
       console.warn(e);
