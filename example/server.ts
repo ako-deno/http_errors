@@ -24,7 +24,7 @@ for await (const req of server) {
       res.status = e.status;
       console.warn(e);
     } else {
-      const err = new HttpError(500);
+      const err = createError(500);
       res.body = JSON.stringify(err.toJSON());
       res.status = err.status;
       console.error(e);

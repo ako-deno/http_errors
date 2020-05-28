@@ -5,7 +5,7 @@
 
 import { Status, STATUS_TEXT } from "./deps.ts";
 
-export class HttpError extends Error {
+export abstract class HttpError extends Error {
   name: string;
   message: string;
   status: number;
@@ -49,6 +49,8 @@ export class HttpError extends Error {
   }
 }
 
+class HttpErrorImpl extends HttpError {}
+
 export interface Props {
   [key: string]: any;
 }
@@ -73,10 +75,10 @@ export function createError(
 ): HttpError {
   let err;
   if (typeof message === "string") {
-    err = new HttpError(status, message);
+    err = new HttpErrorImpl(status, message);
   } else {
     props = message;
-    err = new HttpError(status);
+    err = new HttpErrorImpl(status);
   }
 
   if (props) {

@@ -27,14 +27,12 @@ const err = createError(404, 'Not found LoL!')
 - `expose: true` - can be used to signal if message should be sent to the client, when `status >= 400 && status < 500` it is true, otherwise false. Can be overwritten by Props.
 - `properties` - custom properties to attach to the error object.
 
-name: string;
-  message: string;
-  status: number;
-  expose: boolean
-
 ### HttpError
 
+HttpError is a abstract class, can't be used to create instance.
+
 ```js
+new HttpError(404) // Error! Cannot create an instance of an abstract class.
 createError(500) instanceof HttpError // true
 createError(500) instanceof Error // true
 ```
@@ -73,7 +71,7 @@ for await (const req of server) {
       res.status = e.status;
       console.warn(e);
     } else {
-      const err = new HttpError(500);
+      const err = createError(500);
       res.body = JSON.stringify(err.toJSON());
       res.status = err.status;
       console.error(e);
