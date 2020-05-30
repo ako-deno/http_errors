@@ -2,6 +2,7 @@
 
 [![tag](https://img.shields.io/github/tag/ako-deno/http_errors.svg)](https://github.com/ako-deno/http_errors/tags)
 ![http_errors-ci](https://github.com/ako-deno/http_errors/workflows/http_errors-ci/badge.svg)
+[![HitCount](http://hits.dwyl.com/ako-deno/http_errors.svg)](http://hits.dwyl.com/ako-deno/http_errors)
 
 Create HTTP Error for Deno, inspired by [http_errors](https://github.com/jshttp/http_errors).
 
