@@ -1,8 +1,8 @@
 import {
   assert,
-  assertStrictEq,
+  assertStrictEquals,
   assertThrows,
-} from "https://deno.land/std/testing/asserts.ts";
+} from "https://deno.land/std@0.60.0/testing/asserts.ts";
 import { Status, STATUS_TEXT } from "../deps.ts";
 import { createError, HttpError } from "../mod.ts";
 
@@ -41,15 +41,15 @@ for (const code of ClientServerErrorCodes) {
   });
 
   test(`createError(${_code}) should have "message" property of "${message}"`, function () {
-    assertStrictEq(err.message, message);
+    assertStrictEquals(err.message, message);
   });
 
   test(`createError(${_code}) should have "name" property of "${name}"`, function () {
-    assertStrictEq(err.name, name);
+    assertStrictEquals(err.name, name);
   });
 
   test(`createError(${_code}) should have "statusCode" property of ${_code}`, function () {
-    assertStrictEq(err.status, _code);
+    assertStrictEquals(err.status, _code);
   });
 
   test(`createError(${_code}) should have "expose" property set properly`, function () {
@@ -96,15 +96,15 @@ for (const code of ClientServerErrorCodes) {
   });
 
   test(`createError(${_code}, "${message}") should have "message" property of "${message}"`, function () {
-    assertStrictEq(err.message, message);
+    assertStrictEquals(err.message, message);
   });
 
   test(`createError(${_code}, "${message}") should have "name" property of "${name}"`, function () {
-    assertStrictEq(err.name, name);
+    assertStrictEquals(err.name, name);
   });
 
   test(`createError(${_code}, "${message}") should have "statusCode" property of ${_code}`, function () {
-    assertStrictEq(err.status, _code);
+    assertStrictEquals(err.status, _code);
   });
 
   test(`createError(${_code}, "${message}") should have "expose" property set properly`, function () {
@@ -135,20 +135,20 @@ for (const code of ClientServerErrorCodes) {
   });
 
   test(`createError(${_code}, "${message}", ${propsStr}) should have "message" property of "${message}"`, function () {
-    assertStrictEq(err.message, message);
+    assertStrictEquals(err.message, message);
   });
 
   test(`createError(${_code}, "${message}", ${propsStr}) should have "name" property of "${name}"`, function () {
-    assertStrictEq(err.name, name);
+    assertStrictEquals(err.name, name);
   });
 
   test(`createError(${_code}, "${message}", ${propsStr}) should have "statusCode" property of ${_code}`, function () {
-    assertStrictEq(err.status, _code);
+    assertStrictEquals(err.status, _code);
   });
 
   test(`createError(${_code}, "${message}", ${propsStr}) should have "props" property of ${propsStr}`, function () {
-    assertStrictEq(err.year, props.year);
-    assertStrictEq(err.state, props.state);
+    assertStrictEquals(err.year, props.year);
+    assertStrictEquals(err.state, props.state);
   });
 
   test(`createError(${_code}, "${message}", ${propsStr}) should have "expose" property set properly`, function () {
@@ -179,20 +179,20 @@ for (const code of ClientServerErrorCodes) {
   });
 
   test(`createError(${_code}, ${propsStr}) should have "message" property of "${message}"`, function () {
-    assertStrictEq(err.message, message);
+    assertStrictEquals(err.message, message);
   });
 
   test(`createError(${_code}, ${propsStr}) should have "name" property of "${name}"`, function () {
-    assertStrictEq(err.name, name);
+    assertStrictEquals(err.name, name);
   });
 
   test(`createError(${_code}, ${propsStr}) should have "statusCode" property of ${_code}`, function () {
-    assertStrictEq(err.status, _code);
+    assertStrictEquals(err.status, _code);
   });
 
   test(`createError(${_code}, ${propsStr}) should have "props" property of ${propsStr}`, function () {
-    assertStrictEq(err.year, props.year);
-    assertStrictEq(err.state, props.state);
+    assertStrictEquals(err.year, props.year);
+    assertStrictEquals(err.state, props.state);
   });
 
   test(`createError(${_code}, ${propsStr}) should have "expose" property set properly`, function () {
