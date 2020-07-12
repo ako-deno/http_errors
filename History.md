@@ -1,4 +1,11 @@
 
+2.1.0 / 2020-07-12
+==================
+
+  * feat: add "createError(err: Error, props?: Props)" support
+  * deps: upgrade std to 0.60.0
+  * add hits
+
 2.0.0 / 2020-05-28
 ==================
 
