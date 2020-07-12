@@ -9,11 +9,12 @@ Create HTTP Error for Deno, inspired by [http_errors](https://github.com/jshttp/
 ## API
 
 ```js
-import { createError, HttpError, Props } from "https://deno.land/x/http_errors/mod.ts";
+import { createError, HttpError, IError, Props } from "https://deno.land/x/http_errors/mod.ts";
 ```
 
 ### createError(status: number, message?: string, props?: Props): HttpError
-### createError(status: number, props: Props): HttpError;
+### createError(err: Error, props?: Props): IError
+### createError(status: number, props: Props): HttpError
               
 Create a new error object with the given status code, message and custom properties.
 The error object inherits from `HttpError`.

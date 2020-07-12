@@ -9,6 +9,7 @@ export abstract class HttpError extends Error {
   name: string;
   message: string;
   status: number;
+  statusCode: number;
   expose: boolean = false;
   [key: string]: any
   constructor(code: number, message?: string) {
@@ -31,7 +32,7 @@ export abstract class HttpError extends Error {
     }
     const msg = message != null ? message : STATUS_TEXT.get(code)!;
     this.message = msg;
-    this.status = code;
+    this.status = this.statusCode = code;
     this.name = className;
     (Error as any).captureStackTrace(this, this.constructor);
     Object.setPrototypeOf(this, new.target.prototype);
@@ -40,6 +41,7 @@ export abstract class HttpError extends Error {
   toString() {
     return `${this.name} [${this.status}]: ${this.message}`;
   }
+
   toJSON() {
     return {
       name: this.name,
@@ -52,6 +54,13 @@ export abstract class HttpError extends Error {
 class HttpErrorImpl extends HttpError {}
 
 export interface Props {
+  [key: string]: any;
+}
+
+export interface IError extends Error {
+  status: number;
+  statusCode: number;
+  expose: boolean;
   [key: string]: any;
 }
 
@@ -68,17 +77,38 @@ export function createError(
   props?: Props,
 ): HttpError;
 export function createError(status: number, props: Props): HttpError;
+export function createError(err: Error, props?: Props): IError;
 export function createError(
-  status: number,
+  status: any,
   message?: any,
   props?: Props,
-): HttpError {
+): HttpError | Error {
   let err;
-  if (typeof message === "string") {
+  if (status instanceof Error) {
+    err = status as IError;
+    status = err.status || err.statusCode;
+
+    if (
+      typeof status !== "number" ||
+      (!Status[status] && (status < 400 || status >= 600))
+    ) {
+      status = 500;
+    }
+
+    props = message;
+  } else if (typeof message === "string") {
     err = new HttpErrorImpl(status, message);
+    (Error as any).captureStackTrace(err, createError);
   } else {
     props = message;
     err = new HttpErrorImpl(status);
+    (Error as any).captureStackTrace(err, createError);
+  }
+
+  if (!(err instanceof HttpError) || err.status !== status) {
+    // add properties to generic error
+    err.expose = status < 500;
+    err.status = err.statusCode = status;
   }
 
   if (props) {
@@ -88,6 +118,6 @@ export function createError(
       }
     }
   }
-  (Error as any).captureStackTrace(err, createError);
+
   return err;
 }

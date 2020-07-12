@@ -204,6 +204,53 @@ for (const code of ClientServerErrorCodes) {
   });
 }
 
+test("createError(err)", function () {
+  let _err = new Error("LOL");
+  (_err as any).status = 404;
+  let err = createError(_err);
+  assertStrictEquals(err, _err);
+  assertStrictEquals(err.name, "Error");
+  assertStrictEquals(err.message, "LOL");
+  assertStrictEquals(err.status, 404);
+  assertStrictEquals(err.statusCode, 404);
+  assertStrictEquals(err.expose, true);
+
+  _err = new Error("LOL");
+  err = createError(_err);
+  assertStrictEquals(err, _err);
+  assertStrictEquals(err.name, "Error");
+  assertStrictEquals(err.message, "LOL");
+  assertStrictEquals(err.status, 500);
+  assertStrictEquals(err.statusCode, 500);
+  assertStrictEquals(err.expose, false);
+});
+
+test("createError(err) with invalid err.status", function () {
+  let _err = new Error("Connection refused");
+  (_err as any).status = -1;
+  let err = createError(_err);
+  assertStrictEquals(err, _err);
+  assertStrictEquals(err.name, "Error");
+  assertStrictEquals(err.message, "Connection refused");
+  assertStrictEquals(err.status, 500);
+  assertStrictEquals(err.statusCode, 500);
+  assertStrictEquals(err.expose, false);
+});
+
+test("createError(err, props)", function () {
+  let _err = new Error("LOL");
+  (_err as any).status = 404;
+  let err = createError(_err, {
+    id: 1,
+  });
+  assertStrictEquals(err.name, "Error");
+  assertStrictEquals(err.message, "LOL");
+  assertStrictEquals(err.status, 404);
+  assertStrictEquals(err.statusCode, 404);
+  assertStrictEquals(err.id, 1);
+  assertStrictEquals(err.expose, true);
+});
+
 test("instanceof HttpError", () => {
   assert(createError(500) instanceof HttpError);
 });
