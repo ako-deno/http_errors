@@ -2,7 +2,7 @@ import {
   assert,
   assertStrictEquals,
   assertThrows,
-} from "https://deno.land/std@0.60.0/testing/asserts.ts";
+} from "https://deno.land/std@0.69.0/testing/asserts.ts";
 import { Status, STATUS_TEXT } from "../deps.ts";
 import { createError, HttpError } from "../mod.ts";
 
