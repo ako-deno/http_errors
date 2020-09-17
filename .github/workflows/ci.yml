@@ -18,3 +18,13 @@ jobs:
       - run: deno --version
       - run: deno fmt --check
       - run: deno test -A
+
+      - uses: actions/checkout@v2
+      - uses: denolib/setup-deno@master
+        with:
+          deno-version: 1.4.0
+
+      - run: deno --version
+      - run: deno fmt --check
+      - run: deno test -A
+      - run: deno run --unstable ./test/http_errors_test.ts
