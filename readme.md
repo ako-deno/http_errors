@@ -78,7 +78,7 @@ for await (const req of server) {
       res.status = err.status;
       console.error(e);
     }
-    res.headers?.set("Content-Type", "applicatoin/json");
+    res.headers?.set("Content-Type", "application/json");
   } finally {
     req.respond(res).catch(() => {});
   }
